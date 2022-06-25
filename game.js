@@ -11,6 +11,7 @@ start() {
 this.intervalId = setInterval(() => {
 this.clear()
 this.draw()
+this.move()
   }, 1000 / 60)
 }
 
@@ -19,9 +20,14 @@ this.ctx.clearRect(0, 0, this.ctx.canvas.with, this.ctx.canvas.heigth)
 
   }
 
+move() {
+this.background.move()
+this.fish.move()
+}
+
 draw() {
 this.background.draw();
-this.fish.draw()
+this.fish.draw();
   }
 
 }
