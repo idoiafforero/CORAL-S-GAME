@@ -4,6 +4,7 @@ class Fish {
     this.x = 50;
     this.y = 300;
     this.vy = 0;
+    this.invincible = false;
 
     this.w = 50;
     this.h = 50;
