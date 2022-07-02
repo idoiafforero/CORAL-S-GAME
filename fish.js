@@ -36,11 +36,11 @@ class Fish {
     }
 
     if (this.x <= LEFTLIMIT) {
-      this.x = this.minX;
+      this.x = LEFTLIMIT;
     }
 
     if (this.x >= RIGHTLIMIT) {
-      this.x = this.maxX;
+      this.x = RIGHTLIMIT;
     }
   }
   _setListeners() {
@@ -60,7 +60,9 @@ class Fish {
     if (this.actions.right) {
       this.vx += 0.5;
     } else if (this.actions.left) {
-      this.vx = -0.5;
+      this.vx = 0.5;
+    } else {
+      this.vx = 0;
     }
   }
 

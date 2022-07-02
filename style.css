@@ -23,3 +23,11 @@ canvas {
   .start-btn {
     margin-top: 20px;
   }
+
+  #life-bar {
+    height: 30px;
+    background-color: red;
+    position: absolute;
+    top: 100px;
+    left: 30px;
+  }

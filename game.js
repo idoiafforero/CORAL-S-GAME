@@ -10,13 +10,14 @@ class Game {
     this.invincible = false;
     this.jellyfishTick = 0;
     this.starfishTick = 0;
-
-    this.count = 0;
+    this.lifeBar = document.getElementById("life-bar");
 
     this.gameOver();
   }
 
   start() {
+    this.lifeBar.style.width = `${this.fish.life * 2}px`;
+
     this.intervalId = setInterval(() => {
       this.clear();
       this.draw();
@@ -85,6 +86,7 @@ class Game {
         );
 
         this.fish.life -= 1;
+        this.lifeBar.style.width = `${this.fish.life * 2}px`;
         this.fish.color = "red";
 
         setTimeout(() => {
