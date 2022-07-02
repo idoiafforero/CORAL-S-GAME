@@ -4,6 +4,8 @@ class Fish {
     this.x = 50;
     this.y = 300;
     this.vy = 0;
+    this.vx = 0;
+
     this.invincible = false;
 
     this.w = 50;
@@ -14,19 +16,31 @@ class Fish {
     this.actions = {
       up: false,
       down: false,
+      right: false,
+      left: false,
     };
 
     this._setListeners();
   }
+
   move() {
     this._applyActions();
     this.y += this.vy;
+    this.x += this.vx;
 
     if (this.y < WATERLIMIT) {
       this.y = WATERLIMIT;
     }
     if (this.y + this.h > FLOOR) {
       this.y = FLOOR - this.h;
+    }
+
+    if (this.x <= LEFTLIMIT) {
+      this.x = this.minX;
+    }
+
+    if (this.x >= RIGHTLIMIT) {
+      this.x = this.maxX;
     }
   }
   _setListeners() {
@@ -42,6 +56,12 @@ class Fish {
     } else {
       this.vy = 0;
     }
+
+    if (this.actions.right) {
+      this.vx += 0.5;
+    } else if (this.actions.left) {
+      this.vx = -0.5;
+    }
   }
 
   _switchAction(key, apply) {
@@ -51,6 +71,12 @@ class Fish {
         break;
       case DOWN:
         this.actions.down = apply;
+        break;
+      case RIGHT:
+        this.actions.right = apply;
+        break;
+      case LEFT:
+        this.actions.left = apply;
         break;
     }
   }

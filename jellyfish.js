@@ -10,6 +10,9 @@ class Jellyfish {
     this.vy = 0;
 
     this.color = "blue";
+
+    this.img = new Image();
+    this.img.src = "/img/jellyfish sprite.png";
   }
 
   collide(fish) {

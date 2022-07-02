@@ -11,6 +11,8 @@ class Game {
     this.jellyfishTick = 0;
     this.starfishTick = 0;
 
+    this.count = 0;
+
     this.gameOver();
   }
 
