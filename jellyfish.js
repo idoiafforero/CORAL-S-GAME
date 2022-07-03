@@ -12,7 +12,38 @@ class Jellyfish {
     this.color = "blue";
 
     this.img = new Image();
-    this.img.src = "/img/jellyfish sprite.png";
+    this.img.src = "/img/JELLYFISH.png";
+    this.img.frames = 5;
+    this.img.frameIndex = 0;
+    this.tick = 0;
+  }
+  draw() {
+    this.ctx.drawImage(
+      this.img,
+      (this.img.frameIndex * this.img.width) / this.img.frames,
+      0,
+      this.img.width / this.img.frames,
+      this.img.height,
+      this.x,
+      this.y,
+      this.w,
+      this.h
+    );
+
+    this.animate();
+  }
+
+  animate() {
+    this.tick++;
+
+    if (this.tick > 10) {
+      this.tick = 0;
+      this.img.frameIndex++;
+    }
+
+    if (this.img.frameIndex >= this.img.frames) {
+      this.img.frameIndex = 0;
+    }
   }
 
   collide(fish) {
@@ -25,12 +56,5 @@ class Jellyfish {
   move() {
     this.y += this.vy;
     this.x += this.vx;
-  }
-
-  draw() {
-    this.ctx.beginPath();
-    this.ctx.fillStyle = this.color;
-    this.ctx.fillRect(this.x, this.y, this.w, this.h);
-    this.ctx.closePath();
   }
 }

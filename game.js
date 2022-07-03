@@ -10,9 +10,22 @@ class Game {
     this.invincible = false;
     this.jellyfishTick = 0;
     this.starfishTick = 0;
+    this.points = 0;
     this.lifeBar = document.getElementById("life-bar");
+    this.score = document.getElementById("score");
+  }
 
-    this.gameOver();
+  draw() {
+    //console.log(this.points);
+    this.background.draw();
+    this.fish.draw();
+    this.jellyfishArray.forEach((jellyfish) => {
+      jellyfish.draw();
+    });
+    this.starfishArray.forEach((starFish) => {
+      starFish.draw();
+    });
+    this.pointCounter();
   }
 
   start() {
@@ -27,7 +40,7 @@ class Game {
       this.starfishTick += 1;
       //console.log(this.starfishTick);
 
-      if (this.jellyfishTick % 60 === 0) {
+      if (this.jellyfishTick % 20 === 0) {
         //console.log("entro");
         this.jellyfishArray.push(new Jellyfish(this.ctx));
         this.jellyfishTick = 0;
@@ -67,11 +80,13 @@ class Game {
       );
       this.fish.invincible = true;
       this.fish.color = "green";
+      this.points += 10;
+      this.score.innerHTML = this.points;
 
       setTimeout(() => {
         this.fish.invincible = false;
         this.fish.color = "purple";
-        console.log("se acabó la invencibilidad :(");
+        //console.log("se acabó la invencibilidad :(");
       }, 5000);
     }
 
@@ -85,7 +100,7 @@ class Game {
           (obs) => obs !== fishVsjellyfish
         );
 
-        this.fish.life -= 1;
+        this.fish.life -= 5;
         this.lifeBar.style.width = `${this.fish.life * 2}px`;
         this.fish.color = "red";
 
@@ -114,19 +129,38 @@ class Game {
       this.ctx.canvas.height / 2
     );
   }
+  pause() {
+    clearInterval(this.intervalId);
+    this.intervalId = null;
+
+    this.ctx.font = "30px Arial";
+    this.ctx.fillStyle = "red";
+    this.ctx.textAlign = "center";
+    this.ctx.fillText(
+      "PAUSE",
+      this.ctx.canvas.width / 2,
+      this.ctx.canvas.height / 2
+    );
+  }
 
   addJellyfish() {
     this.jellyfishArray.push(new Jellyfish(this.ctx));
   }
 
-  draw() {
-    this.background.draw();
-    this.fish.draw();
-    this.jellyfishArray.forEach((jellyfish) => {
-      jellyfish.draw();
-    });
-    this.starfishArray.forEach((starFish) => {
-      starFish.draw();
-    });
+  pointCounter() {
+    this.ctx.font = "40px Arial";
+    this.ctx.fillStyle = "red";
+    this.ctx.textAlign = "left";
+    this.ctx.fillText(String(this.points), 50, 50);
   }
+
+  /*barraVida() {
+    this.ctx = ctx
+        this.width = 342;
+        this.height = 4;
+        this.position = {
+            x: 34,
+            y: 14
+        }
+  }*/
 }

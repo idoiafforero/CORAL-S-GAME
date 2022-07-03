@@ -12,6 +12,12 @@ class Fish {
     this.h = 50;
     this.life = 100;
     this.color = "purple";
+    this.img = new Image();
+    this.img.src = "./img/FISH.png";
+    this.img.frames = 4;
+    this.img.frameIndex = 0;
+    this.tick = 0;
+    this.debugTick = 0;
 
     this.actions = {
       up: false,
@@ -21,6 +27,59 @@ class Fish {
     };
 
     this._setListeners();
+
+    this.redFishImg = new Image();
+    this.redFishImg.src = "./img/red_fish.png";
+
+    this.greenFishImg = new Image();
+    this.greenFishImg.src = "./img/green_fish.png";
+  }
+
+  draw() {
+    this.debugTick++;
+
+    if (this.color === "green") {
+      this.ctx.drawImage(
+        this.greenFishImg,
+        (this.img.frameIndex * this.img.width) / this.img.frames,
+        0,
+        this.img.width / this.img.frames,
+        this.img.height,
+        this.x,
+        this.y,
+        this.w,
+        this.h
+      );
+    } else if (this.color === "red") {
+      this.ctx.drawImage(
+        this.redFishImg,
+        (this.img.frameIndex * this.img.width) / this.img.frames,
+        0,
+        this.img.width / this.img.frames,
+        this.img.height,
+        this.x,
+        this.y,
+        this.w,
+        this.h
+      );
+    } else {
+      this.ctx.drawImage(
+        this.img,
+        (this.img.frameIndex * this.img.width) / this.img.frames,
+        0,
+        this.img.width / this.img.frames,
+        this.img.height,
+        this.x,
+        this.y,
+        this.w,
+        this.h
+      );
+    }
+    if (this.debugTick % 60 === 0) {
+      console.log(this.img);
+      this.debugTick = 0;
+    }
+    this.animate();
   }
 
   move() {
@@ -60,7 +119,7 @@ class Fish {
     if (this.actions.right) {
       this.vx += 0.5;
     } else if (this.actions.left) {
-      this.vx = 0.5;
+      this.vx -= 0.5;
     } else {
       this.vx = 0;
     }
@@ -83,10 +142,16 @@ class Fish {
     }
   }
 
-  draw() {
-    this.ctx.beginPath();
-    this.ctx.fillStyle = this.color;
-    this.ctx.fillRect(this.x, this.y, this.w, this.h);
-    this.ctx.closePath();
+  animate() {
+    this.tick++;
+
+    if (this.tick > 5) {
+      this.tick = 0;
+      this.img.frameIndex++;
+    }
+
+    if (this.img.frameIndex >= this.img.frames) {
+      this.img.frameIndex = 0;
+    }
   }
 }

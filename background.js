@@ -10,7 +10,7 @@ class Background {
     this.h = this.ctx.canvas.height;
 
     this.img = new Image();
-    this.img.src = "/img/IMG_4185.PNG";
+    this.img.src = "./img/FONDO MARINO.jpg";
 
     this.img.isReady = false;
 
